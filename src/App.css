@@ -25,3 +25,12 @@
     right: 0;
     transform: translate(25%, 25%)
 }
+
+.store-item-img {
+    height: 200px;
+    object-fit: cover;
+}
+
+.store-counter-button {
+    gap: .5rem;
+}
