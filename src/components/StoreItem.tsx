@@ -1,6 +1,7 @@
 import { Card, Button } from 'react-bootstrap'
 import { formatCurrency } from '../utilities/formatCurrency'
 import { useState } from 'react'
+import { useShoppingCart } from '../context/ShoppingCartContext'
 
 type StoreItemProps = {
     id: number,
@@ -10,19 +11,14 @@ type StoreItemProps = {
 }
 
 export const StoreItem = ({ id, name, price, imgUrl }: StoreItemProps) => {
-  const [quantity, setQuantity] = useState(0);
+  const { 
+      getItemQuantity, 
+      increaseCartQuantity, 
+      decreaseCartQuantity, 
+      removeFromCart 
+    } = useShoppingCart()
 
-  const handleItemAdd = () => {
-    setQuantity(quantity + 1)
-  }
-
-  const handleItemRemove = () => {
-      setQuantity(quantity - 1)
-  }
-
-  const handleAllRemove = () => {
-      setQuantity(0)
-  }
+  const quantity = getItemQuantity(id)
 
   return (
     <Card className="h-100">
@@ -34,17 +30,17 @@ export const StoreItem = ({ id, name, price, imgUrl }: StoreItemProps) => {
             </Card.Title>
             <div className="mt-auto">
                 {quantity === 0 ? (
-                    <Button className="w-100" onClick={handleItemAdd}>+ Add to cart</Button>
+                    <Button className="w-100" onClick={() => increaseCartQuantity(id)}>+ Add to cart</Button>
                 ) : (
                     <div className="store-counter-button d-flex align-items-center flex-column">
                         <div className="store-counter-button d-flex align-items-center justify-content-center">
-                            <Button className="bg-danger" onClick={handleItemRemove}>-</Button>
+                            <Button className="bg-danger" onClick={() => decreaseCartQuantity(id)}>-</Button>
                             <div>
                                 <span className="fs-4">{quantity}</span> {quantity < 2 ? "item" : "items"} in cart
                             </div>
-                            <Button onClick={handleItemAdd}>+</Button>
+                            <Button onClick={() => increaseCartQuantity(id)}>+</Button>
                         </div>
-                        <Button className="bg-danger" onClick={handleAllRemove}>Remove all</Button>
+                        <Button className="bg-danger" onClick={() => removeFromCart(id)}>Remove all</Button>
                     </div>
                 )}
             </div>
