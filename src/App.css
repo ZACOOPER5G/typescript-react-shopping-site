@@ -39,6 +39,6 @@
     object-fit: cover;
 }
 
-.remove-cart-item {
+.cart-item-quantity {
     font-size: .65rem;
 }
