@@ -42,3 +42,7 @@
 .cart-item-quantity {
     font-size: .65rem;
 }
+
+.cart-item-pricing {
+    font-size: .75rem;
+}
